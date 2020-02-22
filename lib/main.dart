@@ -17,7 +17,10 @@ class MyApp extends StatelessWidget {
       title: title,
       theme: lightAppTheme,
       darkTheme: darkAppTheme,
-      home: MyHomePage(title: title),
+      routes: <String, WidgetBuilder> {
+        '/account': (_) => AccountDetail(null)
+      },
+      home: MyHomePage(title: title,),
     );
   }
 }
@@ -36,11 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   AccountListView _listView = AccountListView();
 
   void _addAccount() {
-
-    Navigator.push(context, new MaterialPageRoute(
-        settings: const RouteSettings(name: 'account'),
-        builder: (BuildContext context) => AccountDetail(null))
-    );
+    Navigator.of(context).pushReplacementNamed('/account');
   }
 
   @override

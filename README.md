@@ -5,5 +5,9 @@ Password Management Mobile App
 ## Getting Started
 
 ```bash
-flutter packages pub run build_runner build
+flutter upgrade
+
+flutter packages pub upgrade
+
+flutter packages pub run build_runner build --delete-conflicting-outputs
 ```

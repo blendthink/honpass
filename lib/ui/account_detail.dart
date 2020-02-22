@@ -16,9 +16,14 @@ class AccountDetail extends StatelessWidget {
         leading: Icon(Icons.close),
       ),
       body: Center(
-        child: ServiceLayout(
-            Icon(Icons.account_circle),
-            _account.name
+        child: Column(
+          children: <Widget>[
+            ServiceLayout(
+                Icon(Icons.account_circle),
+                _account == null ? null : _account.name
+            ),
+            AccountLayout(account: _account,)
+          ],
         ),
       ),
     );
@@ -42,15 +47,51 @@ class ServiceLayout extends StatelessWidget {
       title: TextField(
         obscureText: false,
         controller: TextEditingController(
-            text: _name
+            text: _name == null ? '' : _name
         ),
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           labelText: 'Service',
-          hintText: 'Enter Service Name.'
+          hintText: 'Enter service name.'
         ),
       ),
     );
   }
+}
 
+class AccountLayout extends StatelessWidget {
+
+  final Account account;
+
+  const AccountLayout({Key key, this.account}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        TextField(
+          obscureText: false,
+          controller: TextEditingController(
+            text: account == null ? '' : account.name == null ? '' : account.name
+          ),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'User',
+            hintText: 'Enter user name.'
+          ),
+        ),
+        TextField(
+          obscureText: true,
+          controller: TextEditingController(
+              text: account == null ? '' : account.password == null ? '' : account.password
+          ),
+          decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Password',
+              hintText: 'Enter password.'
+          ),
+        )
+      ],
+    );
+  }
 }
