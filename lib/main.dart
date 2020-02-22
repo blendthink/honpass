@@ -46,8 +46,34 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.menu),
         title: Text(widget.title),
+      ),
+      drawer: Drawer(
+        child: ListView.separated(
+            itemCount: 4,
+            itemBuilder: (BuildContext context, int index) {
+
+              if (index == 0) {
+                return  DrawerHeader(
+                  child: Text('Drawer Header'),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                );
+              }
+
+              final String title = 'version';
+
+              return Column(
+                children: <Widget>[
+                  ListTile(
+                    title: Text(title)
+                  )
+                ],
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) => const Divider()
+        ),
       ),
       body: _listView,
       floatingActionButton: FloatingActionButton(
