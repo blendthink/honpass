@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:honpass/db/account.dart';
 import 'package:honpass/db/database.dart';
 import 'package:honpass/theme.dart';
-import 'package:honpass/ui/account_listview.dart';
+import 'package:honpass/ui/account_detail.dart';
+import 'package:honpass/ui/account_list.dart';
 
 void main() => runApp(MyApp());
 
@@ -32,10 +33,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  List<Account> accounts = [];
+  AccountListView _listView = AccountListView();
 
-  void _incrementCounter() {
-    
+  void _addAccount() {
+
+    Navigator.push(context, new MaterialPageRoute(
+        settings: const RouteSettings(name: 'account'),
+        builder: (BuildContext context) => AccountDetail(null))
+    );
   }
 
   @override
@@ -45,9 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: Icon(Icons.menu),
         title: Text(widget.title),
       ),
-      body: AccountListView(),
+      body: _listView,
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _addAccount,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

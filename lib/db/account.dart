@@ -6,10 +6,11 @@ part 'account.g.dart';
 class Account {
 
   final int id;
+  final String serviceId;
   final String name;
   final String password;
 
-  Account({this.id, this.name, this.password});
+  Account({this.id, this.serviceId, this.name, this.password});
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 

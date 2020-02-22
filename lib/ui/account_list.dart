@@ -4,13 +4,21 @@ import 'package:honpass/db/database.dart';
 
 class AccountListView extends StatelessWidget {
 
+  final database = HonPassDatabase();
+
+  Future<List<Account>> _futureAccounts() async {
+    return database.accounts();
+  }
+
+  update() {
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
-    final database = HonPassDatabase();
-
     return FutureBuilder(
-      future: database.accounts(),
+      future: _futureAccounts(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
 
         switch (snapshot.connectionState) {
@@ -35,8 +43,8 @@ class AccountListView extends StatelessWidget {
                       children: <Widget>[
                         ListTile(
                             title: Text(account.name),
-                        ),
-                        Divider(height: 2.0)
+                            leading: FaviconWidget(),
+                        )
                       ],
                     );
                   },
@@ -49,4 +57,21 @@ class AccountListView extends StatelessWidget {
     );
   }
 
+}
+
+
+class FaviconWidget extends StatelessWidget {
+
+  static Icon icon = Icon(Icons.account_circle);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 32,
+      height: 32,
+      child: Image.network(
+        "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico",
+      ),
+    );
+  }
 }
