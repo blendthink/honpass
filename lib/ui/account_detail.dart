@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:honpass/db/account.dart';
+import 'package:honpass/db/service.dart';
 
 class AccountDetail extends StatelessWidget {
 
@@ -18,10 +19,7 @@ class AccountDetail extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            ServiceLayout(
-                Icon(Icons.account_circle),
-                _account == null ? null : _account.name
-            ),
+            ServiceLayout(service: null),
             AccountLayout(account: _account,)
           ],
         ),
@@ -32,27 +30,39 @@ class AccountDetail extends StatelessWidget {
 
 class ServiceLayout extends StatelessWidget {
 
-  Icon _icon;
-  String _name;
+  final Service service;
 
-  ServiceLayout(Icon icon, String name) {
-    _icon = icon;
-    _name = name;
-  }
+  const ServiceLayout({Key key, this.service}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    String name = service == null ? '' : service.name;
+    String url = service == null ? '' : service.url;
+    String iconPath = service == null ? '' : service.iconPath;
+
     return ListTile(
-      leading: _icon,
+      leading: Icon(Icons.account_circle),
       title: TextField(
         obscureText: false,
         controller: TextEditingController(
-            text: _name == null ? '' : _name
+            text: name
         ),
         decoration: InputDecoration(
           border: OutlineInputBorder(),
           labelText: 'Service',
           hintText: 'Enter service name.'
+        ),
+      ),
+      subtitle: TextField(
+        obscureText: false,
+        controller: TextEditingController(
+            text: url
+        ),
+        decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: 'URL',
+            hintText: 'Enter service url.'
         ),
       ),
     );
@@ -90,7 +100,7 @@ class AccountLayout extends StatelessWidget {
               labelText: 'Password',
               hintText: 'Enter password.'
           ),
-        )
+        ),
       ],
     );
   }

@@ -5,7 +5,8 @@ class Service {
 
   final int id;
   final String name;
+  final String url;
   final String iconPath;
 
-  Service({this.id, this.name, this.iconPath});
+  Service({this.id, this.url, this.name, this.iconPath});
 }
