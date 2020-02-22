@@ -55,7 +55,10 @@ class ServiceLayout extends StatelessWidget {
     String iconPath = service == null ? '' : service.iconPath;
 
     return ListTile(
-      leading: Icon(Icons.account_circle),
+      leading: CircleAvatar(
+        child: url.isEmpty ? Icon(Icons.language) : Image.network("https://api.statvoo.com/favicon/?url=$url"),
+        backgroundColor: Colors.white,
+      ),
       title: TextField(
         obscureText: false,
         controller: TextEditingController(
