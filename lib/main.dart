@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:honpass/db/account.dart';
-import 'package:honpass/db/database.dart';
 import 'package:honpass/theme.dart';
 import 'package:honpass/ui/account_detail.dart';
 import 'package:honpass/ui/account_list.dart';
@@ -9,7 +7,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
 
-  static const title = 'ほんパス';
+  static const title = 'honpass';
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   AccountListView _listView = AccountListView();
 
   void _addAccount() {
-    Navigator.of(context).pushReplacementNamed('/account');
+    Navigator.of(context).pushNamed('/account');
   }
 
   @override
