@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:honpass/db/account.dart';
+import 'package:provider/provider.dart';
 
 import 'widget/layout_account.dart';
 import 'widget/layout_service.dart';
@@ -34,7 +35,10 @@ class AccountDetail extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            ServiceLayout(service: null),
+            ChangeNotifierProvider(
+              create: (context) => ServiceProvider(),
+              child: ServiceLayout(service: null),
+            ),
             AccountLayout(account: _account,)
           ],
         ),

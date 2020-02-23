@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:honpass/db/service.dart';
+import 'package:provider/provider.dart';
 
 class ServiceLayout extends StatelessWidget {
 
@@ -10,55 +11,73 @@ class ServiceLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<Service> services = [
-      null,
-      Service(
-          url: 'google.com',
-          name: 'Google'
-      ),
-      Service(
-          url: 'twitter.com',
-          name: 'Twitter'
-      ),
-    ];
+    return Consumer<ServiceProvider>(builder: (context, provider, _) {
+      return DropdownButton<Service>(
+          value: provider.selected,
+          items: provider
+              .items
+              .map<DropdownMenuItem<Service>>((Service value) {
 
-    return DropdownButton<Service>(
-      value: services[2],
-      onChanged: (Service newValue) {
+                List<Widget> widgets;
+                if (value == null) {
+                  widgets = <Widget> [
+                    CircleAvatar(
+                      child: Icon(Icons.add),
+                      backgroundColor: Colors.transparent,
+                    ),
+                    Text('New Service')
+                  ];
+                } else {
+                  widgets = <Widget> [
+                    CircleAvatar(
+                      child: Image.network(
+                        "https://api.statvoo.com/favicon/?url=${value.url}",
+                        height: 24,
+                        width: 24,
+                      ),
+                      backgroundColor: Colors.transparent,
+                    ),
+                    Text(value.name)
+                  ];
+                }
 
-      },
-      items: services.map<DropdownMenuItem<Service>>((Service value) {
+                return DropdownMenuItem<Service>(
+                  value: value,
+                  child: Row(
+                    children: widgets,
+                  )
+                );
+              })
+              .toList(),
+          onChanged: (Service newValue) {
+            provider.onChange(newValue);
+          }
+      );
+    });
+  }
+}
 
-        List<Widget> widgets;
-        if (value == null) {
-          widgets = <Widget> [
-            CircleAvatar(
-              child: Icon(Icons.add),
-              backgroundColor: Colors.transparent,
-            ),
-            Text('New Service')
-          ];
-        } else {
-          widgets = <Widget> [
-            CircleAvatar(
-              child: Image.network(
-                "https://api.statvoo.com/favicon/?url=${value.url}",
-                height: 24,
-                width: 24,
-              ),
-              backgroundColor: Colors.transparent,
-            ),
-            Text(value.name)
-          ];
-        }
+class ServiceProvider with ChangeNotifier {
 
-        return DropdownMenuItem(
-            value: value,
-            child: Row(
-              children: widgets,
-            )
-        );
-      }).toList(),
-    );
+  List<Service> _items = [
+    null,
+    Service(
+        url: 'google.com',
+        name: 'Google'
+    ),
+    Service(
+        url: 'twitter.com',
+        name: 'Twitter'
+    ),
+  ];
+
+  Service _selectedItem;
+
+  List<Service> get items => _items;
+  Service get selected => _selectedItem;
+
+  void onChange(Service service) {
+    _selectedItem = service;
+    notifyListeners();
   }
 }
