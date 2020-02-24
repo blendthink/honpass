@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:honpass/db/database.dart';
 import 'package:honpass/db/entity/account.dart';
+import 'package:honpass/repository/service_repository.dart';
 import 'package:provider/provider.dart';
 
 import '../../widget/layout_account.dart';
@@ -37,7 +39,7 @@ class AccountScreen extends StatelessWidget {
         child: Column(
           children: <Widget>[
             ChangeNotifierProvider(
-              create: (context) => ServiceProvider(),
+              create: (context) => ServiceViewModel(ServiceRepository(HonpassDatabase())),
               child: ServiceLayout(service: null),
             ),
             AccountLayout(account: account,)

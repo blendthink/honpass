@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:honpass/db/entity/service.dart';
+import 'package:honpass/repository/service_repository.dart';
 import 'package:provider/provider.dart';
 
 class ServiceLayout extends StatelessWidget {
@@ -11,7 +12,7 @@ class ServiceLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Consumer<ServiceProvider>(builder: (context, provider, _) {
+    return Consumer<ServiceViewModel>(builder: (context, provider, _) {
       return DropdownButton<Service>(
           value: provider.selected,
           items: provider
@@ -37,7 +38,10 @@ class ServiceLayout extends StatelessWidget {
                       ),
                       backgroundColor: Colors.transparent,
                     ),
-                    Text(value.name)
+                    Padding(
+                        padding: EdgeInsets.only(left: 12.0),
+                        child: Text(value.name,)
+                    )
                   ];
                 }
 
@@ -57,19 +61,22 @@ class ServiceLayout extends StatelessWidget {
   }
 }
 
-class ServiceProvider with ChangeNotifier {
+class ServiceViewModel with ChangeNotifier {
 
-  List<Service> _items = [
-    null,
-    Service(
-        url: 'google.com',
-        name: 'Google'
-    ),
-    Service(
-        url: 'twitter.com',
-        name: 'Twitter'
-    ),
-  ];
+  final ServiceRepository _serviceRepository;
+
+  ServiceViewModel(this._serviceRepository) {
+    _fetchAll();
+  }
+
+  List<Service> _items = [];
+
+  void _fetchAll() async {
+    _items.clear();
+    _items.add(null);
+    _items.addAll(await _serviceRepository.services());
+    notifyListeners();
+  }
 
   Service _selectedItem;
 
