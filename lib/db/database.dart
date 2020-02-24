@@ -86,7 +86,7 @@ class HonpassDatabase {
             ${Account.COLUMN_NAME} TEXT NOT NULL,
             ${Account.COLUMN_PASSWORD} TEXT NOT NULL,
             FOREIGN KEY (${Account.COLUMN_SERVICE_ID}) REFERENCES ${Service.TABLE_NAME} (${Service.COLUMN_ID})     
-          );
+          )
         '''
     );
   }
