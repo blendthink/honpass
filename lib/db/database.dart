@@ -68,7 +68,7 @@ class HonpassDatabase {
 
   Future<bool> exists() async {
 
-    String path = await getDatabasesPath();
+    String path = join(await getDatabasesPath(), _DATABASE_NAME);
 
     return databaseExists(path);
   }
