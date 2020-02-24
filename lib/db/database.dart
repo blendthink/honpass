@@ -66,6 +66,57 @@ class HonpassDatabase {
     return _instance;
   }
 
+  Future<bool> exists() async {
+
+    String path = await getDatabasesPath();
+
+    return databaseExists(path);
+  }
+
+  Future<void> setup() async {
+
+    final db = await _db;
+
+    final batch = db.batch();
+
+    final services = [
+      {
+        Service.COLUMN_NAME: 'Apple',
+        Service.COLUMN_URL: 'apple.com'
+      },
+      {
+        Service.COLUMN_NAME: 'Google',
+        Service.COLUMN_URL: 'google.com'
+      },
+      {
+        Service.COLUMN_NAME: 'Twitter',
+        Service.COLUMN_URL: 'twitter.com'
+      },
+      {
+        Service.COLUMN_NAME: 'Facebook',
+        Service.COLUMN_URL: 'facebook.com'
+      },
+      {
+        Service.COLUMN_NAME: 'Amazon',
+        Service.COLUMN_URL: 'amazon.com'
+      },
+    ];
+
+    services.forEach((Map<String, String> service) {
+      batch.insert('${Service.TABLE_NAME}', service);
+    });
+
+    final account = {
+      Account.COLUMN_SERVICE_ID: 1,
+      Account.COLUMN_NAME: 'honwaka.developer@gmail.com',
+      Account.COLUMN_PASSWORD: 'password'
+    };
+
+    batch.insert(Account.TABLE_NAME, account);
+
+    batch.commit(noResult: true);
+  }
+
   _createDatabase(Database db, int version) async {
     await db.execute(
         '''

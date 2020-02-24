@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:honpass/initialize.dart';
 import 'package:honpass/theme.dart';
 import 'package:honpass/ui/screen/account/account_screen.dart';
 import 'package:honpass/ui/screen/home/home_screen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+
+  Initialize().init();
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
 
