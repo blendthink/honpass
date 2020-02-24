@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:honpass/db/account.dart';
-import 'package:honpass/db/service.dart';
+import 'package:honpass/db/entities/account.dart';
+import 'package:honpass/db/entities/service.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
