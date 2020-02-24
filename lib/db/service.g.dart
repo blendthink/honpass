@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'account.dart';
+part of 'service.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Account _$AccountFromJson(Map<String, dynamic> json) {
-  return Account(
+Service _$ServiceFromJson(Map<String, dynamic> json) {
+  return Service(
       id: json['id'] as int,
-      serviceId: json['service_id'] as String,
+      url: json['url'] as String,
       name: json['name'] as String,
-      password: json['password'] as String);
+      iconPath: json['icon_path'] as String);
 }
 
-Map<String, dynamic> _$AccountToJson(Account instance) => <String, dynamic>{
+Map<String, dynamic> _$ServiceToJson(Service instance) => <String, dynamic>{
       'id': instance.id,
-      'service_id': instance.serviceId,
       'name': instance.name,
-      'password': instance.password
+      'url': instance.url,
+      'icon_path': instance.iconPath
     };
