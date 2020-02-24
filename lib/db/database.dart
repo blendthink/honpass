@@ -11,11 +11,50 @@ class HonPassDatabase {
 
   static const _DATABASE_NAME = 'honpass.db';
 
-  Future<void> insertAccount(Account account) async {
+  Future<int> insertService(Service service) async {
 
     final db = await _db;
 
-    await db.insert(
+    return await db.insert(
+        Service.TABLE_NAME,
+        service.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace
+    );
+  }
+
+  Future<Service> service(int serviceId) async {
+
+    final db = await _db;
+
+    final List<Map<String, dynamic>> maps = await db.query(
+        Service.TABLE_NAME,
+        where: '${Service.COLUMN_ID} = ?',
+        whereArgs: [serviceId]
+    );
+
+    if (maps.isEmpty) {
+      return null;
+    }
+
+    return Service.fromJson(maps.first);
+  }
+
+  Future<List<Service>> services() async {
+
+    final db = await _db;
+
+    final List<Map<String, dynamic>> maps = await db.query(Service.TABLE_NAME,);
+
+    return List.generate(maps.length, (i) {
+      return Service.fromJson(maps[i]);
+    });
+  }
+
+  Future<int> insertAccount(Account account) async {
+
+    final db = await _db;
+
+    return await db.insert(
         Account.TABLE_NAME,
         account.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace
