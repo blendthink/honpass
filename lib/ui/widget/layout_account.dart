@@ -9,12 +9,16 @@ class AccountLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final String name = account?.name ?? '';
+    final String password = account?.password ?? '';
+
     return Column(
       children: <Widget>[
         TextField(
           obscureText: false,
           controller: TextEditingController(
-              text: account == null ? '' : account.name == null ? '' : account.name
+              text: name
           ),
           decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -25,7 +29,7 @@ class AccountLayout extends StatelessWidget {
         TextField(
           obscureText: true,
           controller: TextEditingController(
-              text: account == null ? '' : account.password == null ? '' : account.password
+              text: password
           ),
           decoration: InputDecoration(
               border: OutlineInputBorder(),
