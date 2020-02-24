@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:honpass/db/entity/account.dart';
 import 'package:provider/provider.dart';
 
-import 'widget/layout_account.dart';
-import 'widget/layout_service.dart';
+import '../../widget/layout_account.dart';
+import '../../widget/layout_service.dart';
 
-class AccountDetail extends StatelessWidget {
+class AccountScreen extends StatelessWidget {
 
-  final Account account;
-
-  const AccountDetail({Key key, this.account}) : super(key: key);
+  static const ROUTE = '/account';
 
   @override
   Widget build(BuildContext context) {
+
+    final AccountScreenArguments args = ModalRoute.of(context).settings.arguments;
+
+    final Account account = args.account;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -43,6 +46,12 @@ class AccountDetail extends StatelessWidget {
       ),
     );
   }
+}
+
+class AccountScreenArguments {
+  final Account account;
+
+  AccountScreenArguments(this.account);
 }
 
 

@@ -3,7 +3,7 @@ import 'package:honpass/db/entity/account.dart';
 import 'package:honpass/db/database.dart';
 import 'package:honpass/repository/account_repository.dart';
 
-class AccountListView extends StatelessWidget {
+class AccountsWidget extends StatelessWidget {
 
   Future<List<Account>> _futureAccounts() async {
     return AccountRepository(HonpassDatabase()).accounts();
