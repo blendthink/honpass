@@ -12,10 +12,10 @@ class ServiceLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Consumer<ServiceViewModel>(builder: (context, provider, _) {
+    return Consumer<ServiceViewModel>(builder: (context, viewModel, _) {
       return DropdownButton<Service>(
-          value: provider.selected,
-          items: provider
+          value: viewModel.selected,
+          items: viewModel
               .items
               .map<DropdownMenuItem<Service>>((Service value) {
 
@@ -54,7 +54,7 @@ class ServiceLayout extends StatelessWidget {
               })
               .toList(),
           onChanged: (Service newValue) {
-            provider.onChange(newValue);
+            viewModel.onChange(newValue);
           }
       );
     });

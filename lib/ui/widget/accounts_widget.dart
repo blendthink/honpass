@@ -7,11 +7,11 @@ class AccountsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Consumer<AccountsViewModel>(builder: (context, provider, _) {
+    return Consumer<AccountsViewModel>(builder: (context, viewModel, _) {
       return ListView.separated(
           itemBuilder: (BuildContext context, int index) {
 
-            final accountMap = provider.accountMaps[index];
+            final accountMap = viewModel.accountMaps[index];
 
             final account = accountMap.keys.first;
             final service = accountMap.values.first;
@@ -34,7 +34,7 @@ class AccountsWidget extends StatelessWidget {
             );
           },
           separatorBuilder: (BuildContext context, int index) => const Divider(),
-          itemCount: provider.accountMaps.length
+          itemCount: viewModel.accountMaps.length
       );
     },);
   }
