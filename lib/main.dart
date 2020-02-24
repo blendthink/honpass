@@ -6,9 +6,9 @@ import 'package:honpass/ui/screen/home/home_screen.dart';
 
 void main() {
 
-  Initialize().init();
-
   runApp(MyApp());
+
+  Initialize().init();
 }
 
 class MyApp extends StatelessWidget {
