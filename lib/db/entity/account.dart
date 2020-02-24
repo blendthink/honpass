@@ -17,7 +17,7 @@ class Account implements HonpassEntity {
   @JsonKey(name: COLUMN_ID)
   final int id;
   @JsonKey(name: COLUMN_SERVICE_ID)
-  final String serviceId;
+  final int serviceId;
   @JsonKey(name: COLUMN_NAME)
   final String name;
   @JsonKey(name: COLUMN_PASSWORD)

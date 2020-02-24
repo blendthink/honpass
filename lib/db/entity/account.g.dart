@@ -9,7 +9,7 @@ part of 'account.dart';
 Account _$AccountFromJson(Map<String, dynamic> json) {
   return Account(
       id: json['id'] as int,
-      serviceId: json['service_id'] as String,
+      serviceId: json['service_id'] as int,
       name: json['name'] as String,
       password: json['password'] as String);
 }
