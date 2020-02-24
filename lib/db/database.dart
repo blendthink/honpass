@@ -66,16 +66,20 @@ class HonpassDatabase {
     return _instance;
   }
 
-  _createDatabase(Database db, int version) {
-    return db.execute(
+  _createDatabase(Database db, int version) async {
+    await db.execute(
         '''
           CREATE TABLE ${Service.TABLE_NAME}(
             ${Service.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
             ${Service.COLUMN_NAME} TEXT NOT NULL,
             ${Service.COLUMN_URL} TEXT NOT NULL,
             ${Service.COLUMN_ICON_PATH} TEXT
-          );
-          
+          )
+        '''
+    );
+
+    return await db.execute(
+        '''
           CREATE TABLE ${Account.TABLE_NAME}(
             ${Account.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
             ${Account.COLUMN_SERVICE_ID} INTEGER,
