@@ -7,11 +7,9 @@ import 'widget/layout_service.dart';
 
 class AccountDetail extends StatelessWidget {
 
-  Account _account;
+  final Account account;
 
-  AccountDetail(Account account) {
-    _account = account;
-  }
+  const AccountDetail({Key key, this.account}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,7 @@ class AccountDetail extends StatelessWidget {
               create: (context) => ServiceProvider(),
               child: ServiceLayout(service: null),
             ),
-            AccountLayout(account: _account,)
+            AccountLayout(account: account,)
           ],
         ),
       ),

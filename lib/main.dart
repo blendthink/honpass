@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: lightAppTheme,
       darkTheme: darkAppTheme,
       routes: <String, WidgetBuilder> {
-        '/account': (_) => AccountDetail(null)
+        '/account': (_) => AccountDetail(account: null)
       },
       home: MyHomePage(title: title,),
     );
