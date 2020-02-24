@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:honpass/db/database.dart';
+import 'package:honpass/repository/account_repository.dart';
+import 'package:honpass/repository/service_repository.dart';
 import 'package:honpass/ui/screen/account/account_screen.dart';
+import 'package:honpass/ui/screen/home/accounts_view_model.dart';
 import 'package:honpass/ui/widget/accounts_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
 
@@ -16,6 +21,8 @@ class HomeScreen extends StatelessWidget {
           arguments: AccountScreenArguments(null)
       );
     }
+
+    HonpassDatabase _db = HonpassDatabase();
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +56,10 @@ class HomeScreen extends StatelessWidget {
             separatorBuilder: (BuildContext context, int index) => const Divider()
         ),
       ),
-      body: AccountsWidget(),
+      body: ChangeNotifierProvider(
+        create: (context) => AccountsViewModel(AccountRepository(_db), ServiceRepository(_db)),
+        child: AccountsWidget(),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addAccount,
         child: Icon(Icons.add),

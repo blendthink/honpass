@@ -1,76 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:honpass/db/entity/account.dart';
-import 'package:honpass/db/database.dart';
-import 'package:honpass/repository/account_repository.dart';
+import 'package:honpass/ui/screen/home/accounts_view_model.dart';
+import 'package:provider/provider.dart';
 
 class AccountsWidget extends StatelessWidget {
 
-  Future<List<Account>> _futureAccounts() async {
-    return AccountRepository(HonpassDatabase()).accounts();
-  }
-
-  update() {
-
-  }
-
   @override
   Widget build(BuildContext context) {
 
-    return FutureBuilder(
-      future: _futureAccounts(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+    return Consumer<AccountsViewModel>(builder: (context, provider, _) {
+      return ListView.separated(
+          itemBuilder: (BuildContext context, int index) {
 
-        switch (snapshot.connectionState) {
+            final accountMap = provider.accountMaps[index];
 
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-            return Center(child: CircularProgressIndicator());
-          default:
-            if (snapshot.hasError) {
-              return Center(child: Text('${snapshot.error}'));
-            } else {
+            final account = accountMap.keys.first;
+            final service = accountMap.values.first;
 
-              List<Account> accounts = snapshot.data;
-
-              return ListView.separated(
-                  itemCount: accounts.length,
-                  itemBuilder: (BuildContext context, int index) {
-
-                    final account = accounts.elementAt(index);
-
-                    return Column(
-                      children: <Widget>[
-                        ListTile(
-                            title: Text(account.name),
-                            leading: FaviconWidget(),
-                        )
-                      ],
-                    );
-                  },
-                  separatorBuilder: (BuildContext context, int index) => const Divider()
-              );
-            }
-        }
-
-      },
-    );
-  }
-
-}
-
-
-class FaviconWidget extends StatelessWidget {
-
-  static Icon icon = Icon(Icons.account_circle);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 32,
-      height: 32,
-      child: Image.network(
-        "https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico",
-      ),
-    );
+            return Column(
+              children: <Widget>[
+                ListTile(
+                  leading: CircleAvatar(
+                    child: Image.network(
+                      'https://api.statvoo.com/favicon/?url=${service.url}',
+                      width: 24,
+                      height: 24,
+                    ),
+                    backgroundColor: Colors.transparent,
+                  ),
+                  title: Text(service.name),
+                  subtitle: Text(account.name),
+                ),
+              ],
+            );
+          },
+          separatorBuilder: (BuildContext context, int index) => const Divider(),
+          itemCount: provider.accountMaps.length
+      );
+    },);
   }
 }
