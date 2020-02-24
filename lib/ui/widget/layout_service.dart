@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:honpass/db/entities/service.dart';
+import 'package:honpass/db/entity/service.dart';
 import 'package:provider/provider.dart';
 
 class ServiceLayout extends StatelessWidget {

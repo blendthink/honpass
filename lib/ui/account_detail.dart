@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:honpass/db/entities/account.dart';
+import 'package:honpass/db/entity/account.dart';
 import 'package:provider/provider.dart';
 
 import 'widget/layout_account.dart';

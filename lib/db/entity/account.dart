@@ -1,9 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../honpass_entity.dart';
+
 part 'account.g.dart';
 
 @JsonSerializable()
-class Account {
+class Account implements HonpassEntity {
 
   static const String TABLE_NAME = 'accounts';
 
@@ -25,5 +27,11 @@ class Account {
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 
+  @override
+  String tableName() {
+    return TABLE_NAME;
+  }
+
+  @override
   Map<String, dynamic> toMap() => _$AccountToJson(this);
 }

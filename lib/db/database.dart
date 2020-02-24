@@ -1,75 +1,51 @@
 import 'dart:async';
 
-import 'package:honpass/db/entities/account.dart';
-import 'package:honpass/db/entities/service.dart';
+import 'package:honpass/db/entity/account.dart';
+import 'package:honpass/db/entity/service.dart';
+import 'package:honpass/db/honpass_entity.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class HonPassDatabase {
+class HonpassDatabase {
 
   Database _instance;
 
   static const _DATABASE_NAME = 'honpass.db';
 
-  Future<int> insertService(Service service) async {
+  Future<int> upsert<T extends HonpassEntity>(T entity) async {
 
     final db = await _db;
 
     return await db.insert(
-        Service.TABLE_NAME,
-        service.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace
+      entity.tableName(),
+      entity.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace
     );
   }
 
-  Future<Service> service(int serviceId) async {
+  Future<List<Map<String, dynamic>>> records(String tableName) async {
 
     final db = await _db;
 
-    final List<Map<String, dynamic>> maps = await db.query(
-        Service.TABLE_NAME,
-        where: '${Service.COLUMN_ID} = ?',
-        whereArgs: [serviceId]
+    return await db.query(tableName);
+  }
+
+  Future<Map<String, dynamic>> record(
+      String tableName,
+      String where,
+      List<dynamic> whereArgs) async {
+
+    final db = await _db;
+
+    final List<Map<String, dynamic>> maps =  await db.query(
+        tableName,
+        where: where,
+        whereArgs: whereArgs
     );
 
-    if (maps.isEmpty) {
-      return null;
-    }
+    if (maps.isEmpty) return null;
 
-    return Service.fromJson(maps.first);
-  }
-
-  Future<List<Service>> services() async {
-
-    final db = await _db;
-
-    final List<Map<String, dynamic>> maps = await db.query(Service.TABLE_NAME,);
-
-    return List.generate(maps.length, (i) {
-      return Service.fromJson(maps[i]);
-    });
-  }
-
-  Future<int> insertAccount(Account account) async {
-
-    final db = await _db;
-
-    return await db.insert(
-        Account.TABLE_NAME,
-        account.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace
-    );
-  }
-
-  Future<List<Account>> accounts() async {
-
-    final db = await _db;
-
-    final List<Map<String, dynamic>> maps = await db.query(Account.TABLE_NAME);
-
-    return List.generate(maps.length, (i) {
-      return Account.fromJson(maps[i]);
-    });
+    return maps.first;
   }
 
   Future<Database> get _db async {

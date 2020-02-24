@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:honpass/db/entities/account.dart';
+import 'package:honpass/db/entity/account.dart';
 import 'package:honpass/db/database.dart';
+import 'package:honpass/repository/account_repository.dart';
 
 class AccountListView extends StatelessWidget {
 
-  final database = HonPassDatabase();
-
   Future<List<Account>> _futureAccounts() async {
-    return database.accounts();
+    return AccountRepository(HonpassDatabase()).accounts();
   }
 
   update() {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:honpass/db/entities/account.dart';
+import 'package:honpass/db/entity/account.dart';
 
 class AccountLayout extends StatelessWidget {
 
