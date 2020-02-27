@@ -14,6 +14,7 @@ class ServiceLayout extends StatelessWidget {
 
     return Consumer<ServiceViewModel>(builder: (context, viewModel, _) {
       return DropdownButton<Service>(
+          key: Key('service_drop_down'),
           value: viewModel.selected,
           items: viewModel
               .items

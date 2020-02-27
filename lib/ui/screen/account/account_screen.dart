@@ -19,6 +19,7 @@ class AccountScreen extends StatelessWidget {
     final Account account = args.account;
 
     return Scaffold(
+      key: Key('account_screen'),
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

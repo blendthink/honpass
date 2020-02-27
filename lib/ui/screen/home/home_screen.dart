@@ -25,6 +25,7 @@ class HomeScreen extends StatelessWidget {
     HonpassDatabase _db = HonpassDatabase();
 
     return Scaffold(
+      key: Key('home_screen'),
       appBar: AppBar(
         title: Text(_TITLE),
       ),
@@ -62,6 +63,7 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addAccount,
+        key: Key('floating_action_button'),
         child: Icon(Icons.add),
       )
     );
