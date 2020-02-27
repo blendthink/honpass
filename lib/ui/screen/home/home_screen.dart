@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
 
+  static const ROUTE = '/';
+
   static const _TITLE = 'honpass';
 
   @override

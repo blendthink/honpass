@@ -16,12 +16,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: HomeScreen.ROUTE,
       theme: lightAppTheme,
       darkTheme: darkAppTheme,
       routes: <String, WidgetBuilder> {
+        HomeScreen.ROUTE: (_) => HomeScreen(),
         AccountScreen.ROUTE: (_) => AccountScreen()
       },
-      home: HomeScreen(),
     );
   }
 }
