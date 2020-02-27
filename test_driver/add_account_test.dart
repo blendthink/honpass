@@ -28,14 +28,6 @@ void main() {
       final fabFinder = find.byValueKey('floating_action_button');
       await driver.tap(fabFinder);
 
-      final path = './screenshot';
-      print('will take screenshot $path');
-      await driver.waitUntilNoTransientCallbacks();
-      final pixels = await driver.screenshot();
-      final file = File(path);
-      await file.writeAsBytes(pixels);
-      print('wrote $file');
-
       final accountScreenFinder = find.byValueKey('account_screen');
       expect(accountScreenFinder != null, true);
 
