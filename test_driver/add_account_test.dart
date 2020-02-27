@@ -32,10 +32,10 @@ void main() {
       expect(accountScreenFinder != null, true);
 
       final serviceDropDownFinder = find.byValueKey('service_drop_down');
-      driver.tap(serviceDropDownFinder);
+      await driver.tap(serviceDropDownFinder);
 
       final serviceDropDownItemApple = find.byValueKey('Apple');
-      driver.tap(serviceDropDownItemApple);
+      await driver.tap(serviceDropDownItemApple);
 
     });
   });
