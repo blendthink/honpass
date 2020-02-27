@@ -33,6 +33,10 @@ void main() {
 
       final serviceDropDownFinder = find.byValueKey('service_drop_down');
       driver.tap(serviceDropDownFinder);
+
+      final serviceDropDownItemApple = find.byValueKey('Apple');
+      driver.tap(serviceDropDownItemApple);
+
     });
   });
 }

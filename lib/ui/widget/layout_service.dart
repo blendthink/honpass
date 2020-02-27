@@ -21,6 +21,8 @@ class ServiceLayout extends StatelessWidget {
               .map<DropdownMenuItem<Service>>((Service value) {
 
                 List<Widget> widgets;
+                String key;
+
                 if (value == null) {
                   widgets = <Widget> [
                     CircleAvatar(
@@ -29,6 +31,7 @@ class ServiceLayout extends StatelessWidget {
                     ),
                     Text('New Service')
                   ];
+                  key = 'New Service';
                 } else {
                   widgets = <Widget> [
                     CircleAvatar(
@@ -44,9 +47,11 @@ class ServiceLayout extends StatelessWidget {
                         child: Text(value.name,)
                     )
                   ];
+                  key = value.name;
                 }
 
                 return DropdownMenuItem<Service>(
+                  key: Key(key),
                   value: value,
                   child: Row(
                     children: widgets,
