@@ -6,12 +6,12 @@ import 'package:honpass/ui/screen/home/home_screen.dart';
 
 void main() {
 
-  runApp(MyApp());
+  runApp(HonpassApp());
 
   Initialize().init();
 }
 
-class MyApp extends StatelessWidget {
+class HonpassApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
