@@ -3,6 +3,8 @@ left to right direction
 
 actor User
 
+(Upsert Service) -[hidden]ri- (Upsert Account)
+
 rectangle {
     User --> (Upsert Service)
     User --> (Upsert Account)
