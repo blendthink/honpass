@@ -1,0 +1,45 @@
+@startuml
+
+package View {
+    component Screen
+    component Component
+
+    Screen -[Hidden]ri- Component
+}
+
+package ViewModel {
+    component ServiceViewModel
+    component AccountViewModel
+
+    ServiceViewModel -[Hidden]ri- AccountViewModel
+}
+
+package Repository {
+    component ServiceRepository
+    component AccountRepository
+
+    ServiceRepository -[Hidden]ri- AccountRepository
+}
+
+package Model {
+    entity Service
+    entity Account
+    
+    Service -[Hidden]ri- Account
+}
+
+package Database {
+    database SQLite {
+        storage services
+        storage accounts
+
+        services -[Hidden]ri- accounts
+    }
+}
+
+View --> ViewModel
+ViewModel --> Repository
+Repository --> Model
+Model --> Database
+
+@enduml
