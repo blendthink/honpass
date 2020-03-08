@@ -1,0 +1,20 @@
+@startuml
+
+entity Service {
+    +id [PK]
+    ---
+    *name
+    *url
+    iconPath
+}
+
+entity Account {
+    +id [PK]
+    ---
+    #serviceId
+    *name
+    *password
+}
+
+Service ||-ri-o{ Account
+@enduml

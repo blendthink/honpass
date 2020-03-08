@@ -1,0 +1,28 @@
+@startuml
+left to right direction
+
+actor User
+
+rectangle {
+    User --> (Upsert Service)
+    User --> (Upsert Account)
+    User --> (Delete Service)
+    User --> (Delete Account)
+    User --> (See Service List)
+    User --> (See Account List)
+    User --> (Filter Account List)
+    User --> (Auto Generate Password)
+}
+
+rectangle "Upsert Service" {
+    (Edit Service Name) --> (Save Service)
+    (Edit Service URL) --> (Save Service)
+}
+
+rectangle "Upsert Account" {
+    (Select Service) --> (Save Account)
+    (Edit Account Name) --> (Save Account)
+    (Edit Account URL) --> (Save Account)
+}
+
+@enduml
