@@ -16,6 +16,7 @@ class AccountLayout extends StatelessWidget {
     return Column(
       children: <Widget>[
         TextField(
+          key: Key('user_text_field'),
           obscureText: false,
           controller: TextEditingController(
               text: name
@@ -27,6 +28,7 @@ class AccountLayout extends StatelessWidget {
           ),
         ),
         TextField(
+          key: Key('password_text_field'),
           obscureText: true,
           controller: TextEditingController(
               text: password
