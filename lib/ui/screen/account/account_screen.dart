@@ -22,6 +22,14 @@ class AccountScreen extends StatelessWidget {
     final ServiceLayout serviceLayout = ServiceLayout(service: null);
     final AccountLayout accountLayout = AccountLayout(account: account,);
 
+    final db = HonpassDatabase();
+
+    final serviceRepository = ServiceRepository(db);
+    final accountRepository = AccountRepository(db);
+
+    final serviceViewModel = ServiceViewModel(serviceRepository);
+    final accountViewModel = AccountViewModel(accountRepository);
+
     return Scaffold(
       key: Key('account_screen'),
       appBar: AppBar(
@@ -47,11 +55,14 @@ class AccountScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            ChangeNotifierProvider(
-              create: (context) => ServiceViewModel(ServiceRepository(HonpassDatabase())),
+            ChangeNotifierProvider.value(
+              value: serviceViewModel,
               child: serviceLayout,
             ),
-            accountLayout
+            ChangeNotifierProvider.value(
+              value: accountViewModel,
+              child: accountLayout,
+            )
           ],
         ),
       ),
