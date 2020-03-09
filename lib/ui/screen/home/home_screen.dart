@@ -26,6 +26,8 @@ class HomeScreen extends StatelessWidget {
 
     HonpassDatabase _db = HonpassDatabase();
 
+    final accountsViewMode = AccountsViewModel(AccountRepository(_db), ServiceRepository(_db));
+
     return Scaffold(
       key: Key('home_screen'),
       appBar: AppBar(
@@ -59,8 +61,8 @@ class HomeScreen extends StatelessWidget {
             separatorBuilder: (BuildContext context, int index) => const Divider()
         ),
       ),
-      body: ChangeNotifierProvider(
-        create: (context) => AccountsViewModel(AccountRepository(_db), ServiceRepository(_db)),
+      body: ChangeNotifierProvider.value(
+        value: accountsViewMode,
         child: AccountsWidget(),
       ),
       floatingActionButton: FloatingActionButton(
