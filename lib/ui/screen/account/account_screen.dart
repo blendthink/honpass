@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:honpass/db/database.dart';
 import 'package:honpass/db/entity/account.dart';
@@ -44,10 +45,37 @@ class AccountScreen extends StatelessWidget {
             key: Key('done'),
             icon: Icon(Icons.done),
             onPressed: () {
-              HonpassDatabase db = HonpassDatabase();
-              AccountRepository(db).insertAccount(Account(serviceId: 0, name: '', password: ''));
 
-              Navigator.of(context).pop();
+              final selectedServiceId = serviceViewModel.selected?.id;
+
+              if (selectedServiceId == null) {
+                showDialog(
+                    context: context,
+                    builder: (_) {
+                      return CupertinoAlertDialog(
+                        content: Text('サービスを選択してください'),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                            child: Text('OK'),
+                            onPressed: () => Navigator.pop(context),
+                          )
+                        ],
+                      );
+                    }
+                );
+                return;
+              }
+
+              final newAccount = Account(
+                  serviceId: selectedServiceId,
+                  name: accountViewModel.user,
+                  password: accountViewModel.password
+              );
+
+              accountRepository.insertAccount(newAccount)
+                  .then((content) => print(content))
+                  .catchError((error) => print(error))
+                  .whenComplete(() => Navigator.of(context).pop());
             },
           ),
         ],

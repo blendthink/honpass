@@ -17,8 +17,9 @@ class AccountLayout extends StatelessWidget {
 
     return Consumer<AccountViewModel>(builder: (context, viewModel, _) {
 
-      viewModel.user = name;
-      viewModel.password = password;
+      viewModel
+        ..user = name
+        ..password = password;
 
       return Column(
         children: <Widget>[
